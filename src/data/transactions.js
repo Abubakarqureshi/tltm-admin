@@ -14,8 +14,8 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY"),
-        // "download" : <FontAwesomeIcon icon={faDownload} />
+        "dueDate" : moment().add(3, "days").add(1,"month").format("DD-MM-YYYY"),
+        
 
 
     },
@@ -30,7 +30,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 3,
@@ -43,7 +43,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 4,
@@ -56,7 +56,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 5,
@@ -69,7 +69,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 6,
@@ -82,7 +82,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 7,
@@ -95,7 +95,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 8,
@@ -108,7 +108,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 9,
@@ -121,7 +121,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     },
     {
         "invoiceNumber": 10,
@@ -134,6 +134,6 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().subtract(7, "days").add(1,"month").format("DD-MM-YYYY")
+        "dueDate" : moment().subtract(0, "days").add(1,"month").format("DD-MM-YYYY")
     }
 ]

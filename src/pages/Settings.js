@@ -6,6 +6,7 @@ import { ChoosePhotoWidget, ProfileCardWidget } from "../components/Widgets";
 import { GeneralInfoForm } from "../components/Forms";
 
 import Profile3 from "../assets/img/team/profile-picture-3.jpg";
+import { Modal } from "bootstrap";
 
 
 export default () => {

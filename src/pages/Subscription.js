@@ -5,20 +5,81 @@ import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown }
 
 import { SubscriptionTable, TransactionsTable } from "../components/Tables";
 import transactions from "../data/transactions";
+import Modal  from "../components/modal/Modal";
 
 export default () => {
-// const data = useState()÷
-  const [list, setList] = useState();
-  const [searchValue, setSearchValue] = useState("");
-  const handleDeleteClick = (invoiceNumber) => {
-    alert( invoiceNumber)
-    // const newTransactions = [...transactions]
-    // const index = transactions.findIndex((transaction) => transaction.id === transactionId)
-    // newTransactions.splice(index, 1)
-    // setList(newTransactions);
-    // setList(newTransactions);
+
+  const [list, setList] = useState(transactions);
+  const [editFormData, setEditFormData] = useState(null);
+  const [editSubsId, setEditSubsId] = useState(null);
+
+
+
+  const handleEditClick = ( listItem) => {
+    // event.preventDefault();
+    const confirm = window.confirm("Are you sure you want to Edit?")
+    if(confirm){
+      setEditFormData(listItem)
+      // console.log(listItem)
+
+      // setEditSubsId(listItem.invoiceNumber);
+      // console.log(listItem.invoiceNumber);
+      // const formValues = {
+      //   fullName: listItem.fullName,
+      //   subscriptionType : listItem.subscriptionType,
+      // }
+      // setEditFormData(formValues);
+      
+
+    }
 
   }
+
+  const handleEditFormChange = (event) => {
+    event.preventDefault();
+
+    const fieldName = event.target.getAttribute("name");
+    const fieldValue = event.target.value;
+
+    const newFormData = {...editFormData }
+    newFormData[fieldName] = fieldValue;
+    
+    setEditFormData(newFormData);
+  }
+
+  const handleEditFormSubmit = (event) => {
+    event.preventDefault();
+
+    const editedSubs = {
+      fullName : editFormData.fullName,
+      subscriptionType : editFormData.subscriptionType
+    }
+    const newList = [...list]
+
+    const index = list.findIndex((listItem) => listItem.invoiceNumber === editSubsId);
+    
+    newList[index] = editedSubs;
+    setList(newList);
+    setEditSubsId(null)
+  }
+
+  const handleRemove = (listItem) => {
+    const newList = list.filter((ls) => ls.invoiceNumber !== listItem.invoiceNumber);
+    console.log(newList)
+    setList(newList);
+  }
+
+  // const handleEdit = (listItem) => {
+  //   console.log(listItem);
+  // }
+  
+  // const handleDeleteClick = (invoiceNumber) => {
+  //   alert( invoiceNumber)
+  //   // const newTransactions = [...transactions]
+  //   // newTransactions.splice(invoiceNumber, 1)
+  //   // setList(newTransactions);
+  //   // console.log(setList)
+  // }
 
   return (
     <>
@@ -63,7 +124,28 @@ export default () => {
         </Row>
       </div>
 
-      <SubscriptionTable handleDeleteClick={handleDeleteClick}/>
+      <SubscriptionTable
+        handleRemove={handleRemove} 
+        list={list} 
+        handleEditClick ={handleEditClick}
+        />
+{
+  editFormData?
+  <form style={{background:'red', position:"absolute", top:'0'}} onSubmit={(e)=>{
+    e.preventDefault()
+    // console.log(editFormData)
+    setEditFormData(null)
+  }}>
+  {/* <label>
+  <input type='text' value={editFormData.subscriptionType}/>
+  <input type='text' value={editFormData.Amount}/>
+  </label>
+
+  <input type='submit' value='Submit'/> */}
+  <Modal editFormData={editFormData} setEditFormData={setEditFormData} />
+</form>
+: null
+}
     </>
   );
 };

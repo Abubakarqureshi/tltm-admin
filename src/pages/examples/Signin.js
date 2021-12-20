@@ -19,26 +19,44 @@ export default () => {
     email: "",
     password: ""
   })
-  console.log(user)
   const handleSubmit = e => {
     e.preventDefault();
-    if(user.email === 'admin@gmail.com' && user.password === '123456'){
-
-      dispatch(loginUserAction(user))
+    fetch('http://tlts-back.maqware.com/api/admin/login', {
+      method: 'POST',
+      headers:  {
+        'Content-Type' : 'application/json',
+        'Access-Control-Allow-Origin':"*"
+      }, 
+      body: JSON.stringify(user)
+    })
+    .then(resp => resp.json())
+    .then(data=> {
+      if(data.user){
+        dispatch(loginUserAction(user))
       history.push('/dashboard/overview')
+      
+      }else{
+        console.log(data)
+      }
     }
-    else{
-      alert(
-        'Password is wrong'
-      )
-    }
+    )
+    .catch(err=> console.log(err.message))
+
+    // if(user.email === 'admin@gmail.com' && user.password === '123456'){
+
+    // }
+    // else{
+      // alert(
+      //   'Password is wrong'
+      // )
+    // }
   }
 
   const handleChange = e => {
     // setUser({ email : e.target.value, password : e.target.value}) 
     const {name, value} = e.target;
     setUser({...user, [name]: value});
-    console.log(user)
+    
   };
 
   return (

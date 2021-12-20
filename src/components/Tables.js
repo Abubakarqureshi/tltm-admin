@@ -2,7 +2,7 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp, faArrowDown, faArrowUp, faCheck,faDownload, faEdit, faEllipsisH, faExternalLinkAlt, faEye, faTicketAlt, faTimes, faTrashAlt } from '@fortawesome/free-solid-svg-icons';
-import { Col, Row, Nav, Card, Image, Button, Table, Dropdown, ProgressBar, Pagination, ButtonGroup } from '@themesberg/react-bootstrap';
+import { Col, Row, Nav, Card, Image, Button, Table, Dropdown, ProgressBar,Pagination, ButtonGroup } from '@themesberg/react-bootstrap';
 import { Link } from 'react-router-dom';
 
 import { Routes } from "../routes";
@@ -10,6 +10,7 @@ import { pageVisits, pageTraffic, pageRanking } from "../data/tables";
 import transactions from "../data/transactions";
 import commands from "../data/commands";
 import legalFormsList from "../data/legalFormsList";
+import PaginationUser from "../components/Pagination";
 
 
 
@@ -196,25 +197,27 @@ export const RankingTable = () => {
   );
 };
 
-export const TransactionsTable = ({searchedTransaction}) => {
+export const TransactionsTable = ({searchedTransaction,setCurrentPage,currentPage, usersPerPage, currentPageUsers}) => {
   const totalTransactions = searchedTransaction.length;
 
   const TableRow = (props) => {
-    const { invoiceNumber, subscriptionType, address, fullName, issueDate, dueDate, email, status, phone } = props;
-    const statusVariant = status === "Paid" ? "success"
-      : status === "Due" ? "warning"
-        : status === "Canceled" ? "danger" : "primary";
+    const { id, subscription_plan,role,title, address, name, forms_left, subscription_date, email, phone } = props;
+    // const statusVariant = status === "Paid" ? "success"
+    //   : status === "Due" ? "warning"
+    //     : status === "Canceled" ? "danger" : "primary";
+
+    // const paginate = pageNumber => setCurrentPage(pageNumber);
 
     return (
       <tr>
         <td>
           <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
-            {invoiceNumber}
+            {id}
           </Card.Link>
         </td>
         <td>
           <span className="fw-normal">
-            {fullName}
+            {name}
           </span>
         </td>
         <td>
@@ -222,11 +225,11 @@ export const TransactionsTable = ({searchedTransaction}) => {
             {email}
           </span>
         </td>
-        <td>
+        {/* <td>
           <span className="fw-normal">
             {address}
           </span>
-        </td>
+        </td> */}
         <td>
           <span className="fw-normal">
             {phone}
@@ -234,14 +237,14 @@ export const TransactionsTable = ({searchedTransaction}) => {
         </td>
         <td>
           <span className="fw-normal">
-            {subscriptionType}
+            {subscription_plan?subscription_plan.title:null}
           </span>
         </td>
-        {/* <td>
-          <span className={`fw-normal text-${statusVariant}`}>
-            {status}
+        <td>
+          <span className="fw-normal">
+            {subscription_date?subscription_date:null}
           </span>
-        </td> */}
+        </td>
         {/* <td>
           <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
@@ -257,7 +260,7 @@ export const TransactionsTable = ({searchedTransaction}) => {
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
               <Dropdown.Item className="text-danger">
-                <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
+                <FontAwesomeIcon icon={faTrashAlt} className="me-2" />
               </Dropdown.Item>
             </Dropdown.Menu>
           </Dropdown>
@@ -275,18 +278,19 @@ export const TransactionsTable = ({searchedTransaction}) => {
               <th className="border-bottom">Id</th>
               <th className="border-bottom">FullName</th>
               <th className="border-bottom">Email</th>
-              <th className="border-bottom">Address</th>
               <th className="border-bottom">Phone</th>
-              <th className="border-bottom">Status</th>            
+              <th className="border-bottom">Subscription</th>
+              <th className="border-bottom">Subscription Expiry</th>            
+
 
             </tr>
           </thead>
           <tbody>
-            {searchedTransaction.map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
+            {currentPageUsers.map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
-          <Nav>
+          {/* <Nav>
             <Pagination className="mb-2 mb-lg-0">
               <Pagination.Prev>
                 Previous
@@ -300,9 +304,16 @@ export const TransactionsTable = ({searchedTransaction}) => {
                 Next
               </Pagination.Next>
             </Pagination>
-          </Nav>
+          </Nav> */}
+          <PaginationUser
+          usersPerPage={usersPerPage}
+          totalTransactions = {totalTransactions}
+          setCurrentPage={setCurrentPage}
+          currentPage={currentPage}
+          // paginate={paginate}
+          />
           <small className="fw-bold">
-            Showing <b>{totalTransactions}</b> out of <b>25</b> entries
+            Showing <b>{usersPerPage}</b> out of <b>{totalTransactions}</b> entries
           </small>
         </Card.Footer>
       </Card.Body>
@@ -457,11 +468,11 @@ export const LegalFormsTable = () => {
   );
 };
 
-export const SubscriptionTable = ({handleDeleteClick,data,bla}) => {
+export const SubscriptionTable = ({handleRemove,handleView, handleEditFormChange, handleEditFormSubmit, handleEditClick, list}) => {
+  // console.log(handleEditClick)
   const totalTransactions = transactions.length;
-  console.log(handleDeleteClick)
-  const TableRow = (props) => {
-    const { invoiceNumber, subscriptionType, fullName} = props;
+  const TableRow = ({listItem}) => {
+    const { invoiceNumber, subscriptionType, fullName, Amount} = listItem;
 
     return (
       <tr>
@@ -472,12 +483,12 @@ export const SubscriptionTable = ({handleDeleteClick,data,bla}) => {
         </td>
         <td>
           <span className="fw-normal">
-            {fullName}
+            {subscriptionType}
           </span>
         </td>
         <td>
           <span className="fw-normal">
-            {subscriptionType}
+            {Amount}
           </span>
         </td>
         <td>
@@ -488,13 +499,13 @@ export const SubscriptionTable = ({handleDeleteClick,data,bla}) => {
               </span>
             </Dropdown.Toggle>
             <Dropdown.Menu>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={() => handleView()} > 
                 <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
               </Dropdown.Item>
-              <Dropdown.Item>
+              <Dropdown.Item onClick={()=>handleEditClick(listItem)} >
                 <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
               </Dropdown.Item>
-              <Dropdown.Item className="text-danger" onClick={()=>handleDeleteClick(invoiceNumber)}>
+              <Dropdown.Item className="text-danger" onClick={()=>handleRemove(listItem)}>
                 <FontAwesomeIcon icon={faTrashAlt} className="me-2"  /> Remove
               </Dropdown.Item>
             </Dropdown.Menu>
@@ -505,21 +516,20 @@ export const SubscriptionTable = ({handleDeleteClick,data,bla}) => {
   };
 
   return (
+    <form onSubmit={handleEditFormSubmit} >
     <Card border="light" className="table-wrapper table-responsive shadow-sm">
       <Card.Body className="pt-0">
         <Table hover className="user-table align-items-center">
           <thead>
             <tr>
               <th className="border-bottom">Id</th>
-              <th className="border-bottom">FullName</th>
               <th className="border-bottom">Subscription</th>
+              <th className="border-bottom">Amount</th>
               <th className="border-bottom">Actions</th>
-
-
             </tr>
           </thead>
           <tbody>
-            {transactions.map(t => <TableRow key={`transaction-${t.invoiceNumber}`}  {...t} />)}
+            {list.map(listItem => <TableRow key={`transaction-${listItem.invoiceNumber}`}  listItem={listItem} />)}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
@@ -544,6 +554,7 @@ export const SubscriptionTable = ({handleDeleteClick,data,bla}) => {
         </Card.Footer>
       </Card.Body>
     </Card>
+    </form>
   );
 };
 

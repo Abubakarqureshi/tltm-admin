@@ -37,7 +37,6 @@ import Badges from "./components/Badges";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Buttons from "./components/Buttons";
 import Forms from "./components/Forms";
-import Modals from "./components/Modals";
 import Navs from "./components/Navs";
 import Navbars from "./components/Navbars";
 import Pagination from "./components/Pagination";
@@ -152,7 +151,7 @@ export default () => {
             path={Routes.ServerError.path}
             component={ServerError}
           />
-      {currentUser ? (
+      {/* {currentUser ? ( */}
         <>
 
           {/* pages */}
@@ -231,11 +230,7 @@ export default () => {
             component={Buttons}
           />
           <RouteWithSidebar exact path={Routes.Forms.path} component={Forms} />
-          <RouteWithSidebar
-            exact
-            path={Routes.Modals.path}
-            component={Modals}
-          />
+          
           <RouteWithSidebar exact path={Routes.Navs.path} component={Navs} />
           <RouteWithSidebar
             exact
@@ -311,10 +306,10 @@ export default () => {
             component={DocsChangelog}
           />
         </>
-      ) : (
+      {/* ) : (
         <Redirect to={Routes.Signin.path} />
       )}
-      <Redirect to={Routes.NotFound.path} />
+      <Redirect to={Routes.NotFound.path} /> */}
     </Switch>
   );
 };

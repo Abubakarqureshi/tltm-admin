@@ -1,18 +1,48 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
+import { Multiselect } from 'multiselect-react-dropdown';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCog, faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown } from '@themesberg/react-bootstrap';
+import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown, Pagination } from '@themesberg/react-bootstrap';
 
 import { TransactionsTable } from "../components/Tables";
 import SearchItems from "../components/SearchItems";
 import transactions from "../data/transactions";
+import { faContao } from "@fortawesome/free-brands-svg-icons";
+import PaginationUser from "../components/Pagination";
+import Calendar from "react-calendar";
 
 
 export default () => {
 
-  const [list, setList] = useState(transactions);
+  const [list, setList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
-  // console.log(list)
+  const [usersPerPage, setUsersPerPage] = useState(10);
+  const [currentPage, setCurrentPage] = useState(1);
+
+
+  // const [options] = useState(transactions)
+  useEffect(() => {
+    var myHeaders = new Headers();
+myHeaders.append("Authorization", "Bearer 323|WcCXPruQFrE9R9B2g3KSMJhUfQ6nph9HkJS0cJvU");
+
+var requestOptions = {
+  method: 'GET',
+  headers: myHeaders,
+  redirect: 'follow'
+};
+
+fetch("http://tlts-back.maqware.com/api/admin/users", requestOptions)
+  
+  .then(response => response.json())
+  .then(result => {console.log(result) 
+    return setList(result.data)})
+  .catch(error => console.log('error', error));
+
+    
+  }, [])
+
+    console.log(list)
   const searchHandler = (searchValue) => {
     setSearchValue(searchValue)
     // if (searchValue !== "") {
@@ -27,8 +57,18 @@ export default () => {
     //   setList(transactions);
     // }
   }
-  const searchedList = list.filter(el=>el.fullName.toLowerCase().includes(searchValue.toLowerCase()))
-// console.log(searchedList)
+  const searchedList = list.filter(el=>el.email.toLowerCase().includes(searchValue.toLowerCase()))
+  // Get current posts 
+  // const indexOfLastUser = currentPage * usersPerPage;
+  // const indexOfFirstUser = indexOfLastUser - usersPerPage;
+  // const currentUsers = list.slice(indexOfLastUser, indexOfFirstUser);
+
+  const paginate = (array, page_size, page_number) => {
+    return array.slice((page_number - 1) * page_size, page_number * page_size)
+  }
+  const currentPageUsers = paginate(searchedList, usersPerPage, currentPage)
+  console.log(currentPageUsers)
+
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
@@ -54,29 +94,43 @@ export default () => {
                 <FontAwesomeIcon icon={faSearch} />
               </InputGroup.Text>
               <Form.Control type="text" placeholder="Search" />
-            </InputGroup> */}
+            </InputGroup>  */}
           </Col>
-          <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
+          <Col xs={4} md={2} xl={2} className="ps-md-0 text-end">
             <Dropdown as={ButtonGroup}>
               <Dropdown.Toggle split as={Button} variant="link" className="text-dark m-0 p-0">
                 <span className="icon icon-sm icon-gray">
-                  <FontAwesomeIcon icon={faCog} />
+                  {/* <FontAwesomeIcon icon={faCog} /> */}
+                  <Button>Per Page 10</Button>
                 </span>
               </Dropdown.Toggle>
               <Dropdown.Menu className="dropdown-menu-xs dropdown-menu-right">
                 <Dropdown.Item className="fw-bold text-dark">Show</Dropdown.Item>
-                <Dropdown.Item className="d-flex fw-bold">
+                <Dropdown.Item className="d-flex fw-bold" onClick={() => setUsersPerPage(10) } >
                   10 <span className="icon icon-small ms-auto"><FontAwesomeIcon icon={faCheck} /></span>
                 </Dropdown.Item>
-                <Dropdown.Item className="fw-bold">20</Dropdown.Item>
-                <Dropdown.Item className="fw-bold">30</Dropdown.Item>
+                <Dropdown.Item className="fw-bold" onClick={()=>setUsersPerPage(20)} >20</Dropdown.Item>
+                <Dropdown.Item className="fw-bold" onClick={() => setUsersPerPage(30)} >30</Dropdown.Item>
               </Dropdown.Menu>
             </Dropdown>
           </Col>
+
+
+           {/* <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
+            <Multiselect options={options} displayValue="subscriptionType" placeholder="Customised"/>
+          </Col> */}
         </Row>
       </div>
+      
 
-      <TransactionsTable searchedTransaction={searchedList} />
+      <TransactionsTable 
+      setCurrentPage={setCurrentPage}
+      searchedTransaction={searchedList}  
+      usersPerPage={usersPerPage} 
+      currentPageUsers={currentPageUsers}
+      currentPage={currentPage}  />
+       
+
     </>
   );
 };

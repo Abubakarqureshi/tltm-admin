@@ -4,6 +4,7 @@ import { faCheck, faCog, faHome, faSearch } from '@fortawesome/free-solid-svg-ic
 import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown } from '@themesberg/react-bootstrap';
 
 import { RefundsTable, TransactionsTable } from "../components/Tables";
+import { Modal } from "bootstrap";
 
 export default () => {
   return (
@@ -50,6 +51,7 @@ export default () => {
       </div>
 
       <RefundsTable />
+      
     </>
   );
 };

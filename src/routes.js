@@ -40,7 +40,6 @@ export const Routes = {
     Breadcrumbs: { path: "/components/breadcrumbs" },
     Buttons: { path: "/components/buttons" },
     Forms: { path: "/components/forms" },
-    Modals: { path: "/components/modals" },
     Navs: { path: "/components/navs" },
     Navbars: { path: "/components/navbars" },
     Pagination: { path: "/components/pagination" },
