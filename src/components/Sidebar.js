@@ -70,7 +70,7 @@ export default (props = {}) => {
     <>
       <Navbar expand={false} collapseOnSelect variant="dark" className="navbar-theme-primary px-4 d-md-none">
         <Navbar.Brand className="me-lg-5" as={Link} to={Routes.DashboardOverview.path}>
-          <Image src={ProfilePicture} className="navbar-brand-light" />
+          <Image src='http://tltm.herokuapp.com/images/19.png' className="navbar-brand-light" />
         </Navbar.Brand>
         <Navbar.Toggle as={Button} aria-controls="main-navbar" onClick={onCollapse}>
           <span className="navbar-toggler-icon" />
@@ -82,7 +82,7 @@ export default (props = {}) => {
             <div className="user-card d-flex d-md-none align-items-center justify-content-between justify-content-md-center pb-4">
               <div className="d-flex align-items-center">
                 <div className="user-avatar lg-avatar me-4">
-                  <Image src={ProfilePicture} className="card-img-top rounded-circle border-white" />
+                  <Image src="http://tltm.herokuapp.com/images/19.png" className="card-img-top rounded-circle border-white" />
                 </div>
                 <div className="d-block">
                   <h6>Hi, Jane</h6>
@@ -106,7 +106,7 @@ export default (props = {}) => {
               <NavItem title="Complete Orders" icon={faHandHoldingUsd} link={Routes.CompleteOrders.path} />
 
 
-              <NavItem title="My profile" icon={faUserCircle} link={Routes.Settings.path} />
+              {/* <NavItem title="My profile" icon={faUserCircle} link={Routes.Settings.path} /> */}
               
 
               {/* <CollapsableNavItem eventKey="tables/" title="Tables" icon={faTable}>

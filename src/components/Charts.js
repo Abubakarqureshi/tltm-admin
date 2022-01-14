@@ -2,11 +2,14 @@
 import React from "react";
 import Chartist from "react-chartist";
 import ChartistTooltip from 'chartist-plugin-tooltips-updated';
+// import Utils from 'react-utils';
+import { Line } from "react-chartjs-2";
+import chartist from "chartist";
 
 export const SalesValueChart = () => {
   const data = {
-    labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-    series: [[1, 2, 2, 3, 3, 4, 3]]
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','July'],
+    series: [[1, 2, 4, 1, 12, 1, 3]]
   };
 
   const options = {
@@ -20,8 +23,8 @@ export const SalesValueChart = () => {
     axisY: {
       // On the y-axis start means left and end means right
       showGrid: false,
-      showLabel: false,
-      labelInterpolationFnc: value => `$${value / 1}k`
+      showLabel: true,
+      labelInterpolationFnc: value => `$${value / 0.25}k`
     }
   };
 
@@ -46,7 +49,7 @@ export const SalesValueChartphone = () => {
     fullWidth: false,
     axisX: {
       position: 'end',
-      showGrid: true
+      showGrid: false
     },
     axisY: {
       // On the y-axis start means left and end means right

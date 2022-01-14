@@ -1,14 +1,15 @@
 import React from 'react';
 import {Pagination} from '@themesberg/react-bootstrap';
+import { faBluetooth } from '@fortawesome/free-brands-svg-icons';
 
 
-const PaginationUser = ({ usersPerPage, totalTransactions, setCurrentPage,currentPage, list }) => {
+const PaginationUser = ({ usersPerPage, totalTransactions, setCurrentPage,currentPage, list, totalPayments }) => {
     const pageNumbers = [];
 
     for (let i = 1; i <= Math.ceil(totalTransactions / usersPerPage); i++){
         pageNumbers.push(i);
     }
-console.log(pageNumbers.length)
+// console.log(pageNumbers.length)
   //   const paginate = (array, page_size, page_number) => {
   //     return array.slice((page_number - 1) * page_size, page_number * page_size)
   //   }
@@ -23,7 +24,7 @@ console.log(pageNumbers.length)
 
     // const currentPageUsers = paginatePage(list, 10, 2)
 
-    console.log(list);
+    // console.log(list);
 
     return (
         <nav>
@@ -34,7 +35,7 @@ console.log(pageNumbers.length)
               </Pagination.Prev>
             {pageNumbers.map(number => (
               <li key={number} className='page-item'>
-                <a onClick={() =>setCurrentPage(number)}  className='page-link'>
+                <a onClick={() =>setCurrentPage(number)}  className='page-link' style={currentPage == number? {background: 'black', color:'white'}:null}>
                   {number}
                 </a>
               </li>

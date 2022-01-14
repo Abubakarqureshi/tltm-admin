@@ -30,7 +30,7 @@ export default (props) => {
       <ListGroup.Item action href={link} className="border-bottom border-light">
         <Row className="align-items-center">
           <Col className="col-auto">
-            <Image src={image} className="user-avatar lg-avatar rounded-circle" />
+            <Image src="http://tltm.herokuapp.com/images/19.png" className="user-avatar lg-avatar rounded-circle" />
           </Col>
           <Col className="ps-0 ms--2">
             <div className="d-flex justify-content-between align-items-center">
@@ -53,14 +53,15 @@ export default (props) => {
       <Container fluid className="px-0">
         <div className="d-flex justify-content-between w-100">
           <div className="d-flex align-items-center">
-            <Form className="navbar-search">
+            <Image src="http://tltm.herokuapp.com/images/Full-Trans%202.svg" />
+            {/* <Form className="navbar-search">
               <Form.Group id="topbarSearch">
                 <InputGroup className="input-group-merge search-bar">
                   <InputGroup.Text><FontAwesomeIcon icon={faSearch} /></InputGroup.Text>
                   <Form.Control type="text" placeholder="Search" />
                 </InputGroup>
               </Form.Group>
-            </Form>
+            </Form> */}
           </div>
           <Nav className="align-items-center">
             {/* <Dropdown as={Nav.Item} onToggle={markNotificationsAsRead} >
@@ -88,16 +89,16 @@ export default (props) => {
             <Dropdown as={Nav.Item}>
               <Dropdown.Toggle as={Nav.Link} className="pt-1 px-0">
                 <div className="media d-flex align-items-center">
-                  <Image src={Profile3} className="user-avatar md-avatar rounded-circle" />
+                  <Image src="http://tltm.herokuapp.com/images/19.png" className="user-avatar md-avatar rounded-circle" />
                   <div className="media-body ms-2 text-dark align-items-center d-none d-lg-block">
                     <span className="mb-0 font-small fw-bold">Admin</span>
                   </div>
                 </div>
               </Dropdown.Toggle>
               <Dropdown.Menu className="user-dropdown dropdown-menu-right mt-2">
-                <Dropdown.Item className="fw-bold">
+                {/* <Dropdown.Item className="fw-bold">
                 <Link to='/settings'> <FontAwesomeIcon icon={faUserCircle} className="me-2" /> My Profile </Link>
-                </Dropdown.Item>
+                </Dropdown.Item> */}
                 {/* <Dropdown.Item className="fw-bold">
                   <Link to='/settings'><FontAwesomeIcon icon={faCog} className="me-2" /> My Profile </Link>
                 </Dropdown.Item> */}

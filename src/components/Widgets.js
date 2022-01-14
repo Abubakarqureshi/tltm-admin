@@ -63,7 +63,7 @@ export const ChoosePhotoWidget = (props) => {
 };
 
 export const CounterWidget = (props) => {
-  const { icon, iconColor, category, title, period, percentage } = props;
+  const { icon, iconColor, category, title, period, percentage,users , dollar} = props;
   const percentageIcon = percentage < 0 ? faAngleDown : faAngleUp;
   const percentageColor = percentage < 0 ? "text-danger" : "text-success";
 
@@ -83,7 +83,8 @@ export const CounterWidget = (props) => {
           <Col xs={12} xl={7} className="px-xl-0">
             <div className="d-none d-sm-block">
               <h5>{category}</h5>
-              <h3 className="mb-1">{title}</h3>
+              {dollar ?  <h3 className="mb-1">${title}</h3> : <h3 className="mb-1">{title}</h3>}
+              
             </div>
             {/* <small>{period}, <FontAwesomeIcon icon={faGlobeEurope} size="xs" /> WorldWide</small> 
             <div className="small mt-2">
@@ -131,7 +132,9 @@ export const CircleChartWidget = (props) => {
 };
 
 export const BarChartWidget = (props) => {
-  const { title, value, percentage, data = [] } = props;
+  const { title, value,closeOrders, percentage, data = [] } = props;
+  // const closeOrders = indexedList.length
+  console.log(closeOrders);
   const labels = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
   const series = data.map(d => d.value);
   const percentageIcon = percentage < 0 ? faAngleDown : faAngleUp;
@@ -150,17 +153,20 @@ export const BarChartWidget = (props) => {
             </span>
           </small> */}
         </div>
+
         <div className="d-block ms-auto">
-          {data.map(d => (
-            <div key={`bar-element-${d.id}`} className="d-flex align-items-center text-end mb-2">
-              <span className={`shape-xs rounded-circle bg-${d.color} me-2`} />
-              <small className="fw-normal">{d.label}</small>
-            </div>
-          ))}
+          <div className="d-flex align-items-center text-end mb-2 mr-2 space-right2">
+          {/* <small className="fw-normal bold">{'Open Orders'}</small> */}
+
+          <small className="fw-normal bold">{'Close Orders'}</small>
+
+           </div>
         </div>
+
+
       </Card.Body>
       <Card.Body className="p-2">
-        <BarChart labels={labels} series={series} />
+        {/* <BarChart labels={labels} series={series} /> */}
       </Card.Body>
     </Card>
   );
@@ -218,10 +224,12 @@ export const TeamMembersWidget = () => {
   );
 };
 
-export const ProgressTrackWidget = () => {
+export const ProgressTrackWidget = ({HomeData}) => {
   const Progress = (props) => {
-    const { title, percentage, icon, color, last = false } = props;
+    const { title, percentage,plan_1_count,plan_2_count, icon, color, last = false } = props;
     const extraClassName = last ? "" : "mb-2";
+
+    // const planOnePercent = () => {}
 
     return (
       <Row className={`align-items-center ${extraClassName}`}>
@@ -252,9 +260,9 @@ export const ProgressTrackWidget = () => {
       </Card.Header>
       <Card.Body>
 
-        <Progress title="Silver" color="purple" icon={faAlgolia} percentage={34} />
-        <Progress title="Gold" color="info" icon={faSchlix} percentage={60} />
-        <Progress title="Platinum" color="tertiary" icon={faVuejs} percentage={45} />
+        <Progress title="Starter TLTM Member" color="tertiary" icon={faAlgolia} percentage={((HomeData.plan_1_count/(HomeData.plan_1_count+HomeData.plan_2_count))*100).toFixed(0)} />
+        <Progress title="Pro TLTM Member" color="info" icon={faSchlix} percentage={((HomeData.plan_2_count/(HomeData.plan_1_count+HomeData.plan_2_count))*100).toFixed(0)} />
+        {/* <Progress title="Platinum" color="tertiary" icon={faVuejs} percentage={45} /> */}
         {/* <Progress title="Stellar - Dashboard" color="info" icon={faReact} percentage={35} />
         <Progress last title="Volt - Dashboard" color="purple" icon={faBootstrap} percentage={34} /> */}
       </Card.Body>
@@ -320,18 +328,19 @@ export const SalesValueWidget = (props) => {
             {title}
           </h5>
           <h3>${value}</h3>
-          {/* <small className="fw-bold mt-2">
-            <span className="me-2">Yesterday</span>
+          <small className="fw-bold mt-2">
+            {/* <span className="me-2">Yesterday</span>
             <FontAwesomeIcon icon={percentageIcon} className={`${percentageColor} me-1`} />
             <span className={percentageColor}>
               {percentage}%
-            </span>
-          </small> */}
+            </span> */}
+          </small>
         </div>
-        {/* <div className="d-flex ms-auto">
-          <Button variant="secondary" size="sm" className="me-2">Month</Button>
-          <Button variant="primary" size="sm" className="me-3">Week</Button>
-        </div> */}
+        <div className="d-flex ms-auto">
+        <Button variant="tertiary" size="sm" className="me-2">Daily</Button>
+          <Button variant="secondary" size="sm" className="me-2">Monthly</Button>
+          <Button variant="primary" size="sm" className="me-3">Yearly</Button>
+        </div>
       </Card.Header>
       <Card.Body className="p-2">
         <SalesValueChart />
@@ -403,3 +412,18 @@ export const AcquisitionWidget = () => {
     </Card>
   );
 };
+
+
+// total orders widget loop with open and close orders
+
+{/* <div className="d-block ms-auto"> */}
+          {/* {data.map(d => ( */}
+            // <div key={`bar-element-${d.id}`} className="d-flex align-items-center text-end mb-2 mr-2 space-right2">
+            //   {/* <span className={`shape-xs rounded-circle bg-${d.color} me-2`} /> */}
+            //   <small className="fw-normal bold bg-success ">{d.color}</small>
+              
+            //   <small className="fw-normal">{d.label}</small>
+            // </div>
+          // ))}
+        // </div>
+

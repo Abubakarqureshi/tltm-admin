@@ -32,10 +32,11 @@ export default () => {
             <Dropdown.Divider />
 
             <Dropdown.Item>
-              <FontAwesomeIcon icon={faRocket} className="text-danger me-2" /> Subscription Plan
+              <FontAwesomeIcon icon={faRocket} className="text-danger me-2" 
+               /> Subscription Plan
               </Dropdown.Item>
           </Dropdown.Menu>
-        </Dropdown>
+        </Dropdown>     
 
         {/* <div className="d-flex">
           <Dropdown>
@@ -74,13 +75,13 @@ export default () => {
 
         <Col xs={12} xl={4}>
           <Row>
-            <Col xs={12}>
+            {/* <Col xs={12}>
               <ProfileCardWidget />
-            </Col>
+            </Col> */}
             <Col xs={12}>
               <ChoosePhotoWidget
                 title="Select profile photo"
-                photo={Profile3}
+                photo="http://tltm.herokuapp.com/images/19.png"
               />
             </Col>
           </Row>

@@ -14,7 +14,7 @@ export default [
         "Amount" : "$450",
         "Remarks" : "Refund for gold subscription",
         "issueDate" : moment().subtract(0, "days").format("DD-MM-YYYY"),
-        "dueDate" : moment().add(3, "days").add(1,"month").format("DD-MM-YYYY"),
+        "dueDate" : moment().add(0, "days").add(1,"month").format("DD-MM-YYYY"),
         
 
 

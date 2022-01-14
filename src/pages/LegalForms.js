@@ -1,57 +1,72 @@
-import React from "react";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheck, faCog, faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
-import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown } from '@themesberg/react-bootstrap';
+import React, { useState, useEffect } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheck,
+  faCog,
+  faHome,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  Col,
+  Row,
+  Form,
+  Button,
+  ButtonGroup,
+  Breadcrumb,
+  InputGroup,
+  Dropdown,
+} from "@themesberg/react-bootstrap";
 
 import { LegalFormsTable, TransactionsTable } from "../components/Tables";
 import OurServices from "../components/OurServices/OurServices";
+import legalFormsList from "../data/legalFormsList";
+import PopUpLegalForm from "../components/modal/PopUpLegalForm";
 
 export default () => {
+  const [forms, setForms] = useState([]);
+  const [editLegalForm, setEditLegalForm] = useState(null);
+
+  useEffect(() => {
+    var myHeaders = new Headers();
+    myHeaders.append(
+      "Authorization",
+      "Bearer 636|w6OFiBh6OiC31geQKYAiniYZkcWmdXOZ4JY98HSg"
+    );
+
+    var requestOptions = {
+      method: "GET",
+      headers: myHeaders,
+      redirect: "follow",
+    };
+
+    fetch("http://tlts-back.maqware.com/api/admin/legal_forms", requestOptions)
+      .then((response) => response.json())
+      .then((result) => {
+        console.log(result);
+        if (result.status) {
+          return setForms(result.legal_forms);
+        }
+      })
+      .catch((error) => console.log("error", error));
+  }, []);
+
+  const handleEditClick = (listItem) => {
+    setEditLegalForm(listItem);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center py-4">
         <div className="d-block mb-4 mb-md-0">
-          
-          <h4>Legal Forms</h4>
-          
+          <h4>Legal Forms List</h4>
         </div>
-        <div className="btn-toolbar mb-2 mb-md-0">
-          
-        </div>
+        <div className="btn-toolbar mb-2 mb-md-0"></div>
       </div>
 
-      <div className="table-settings mb-4">
-        <Row className="justify-content-between align-items-center">
-          <Col xs={8} md={6} lg={3} xl={4}>
-            <InputGroup>
-              <InputGroup.Text>
-                <FontAwesomeIcon icon={faSearch} />
-              </InputGroup.Text>
-              <Form.Control type="text" placeholder="Search" />
-            </InputGroup>
-          </Col>
-          <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
-            <Dropdown as={ButtonGroup}>
-              <Dropdown.Toggle split as={Button} variant="link" className="text-dark m-0 p-0">
-                <span className="icon icon-sm icon-gray">
-                  <FontAwesomeIcon icon={faCog} />
-                </span>
-              </Dropdown.Toggle>
-              <Dropdown.Menu className="dropdown-menu-xs dropdown-menu-right">
-                <Dropdown.Item className="fw-bold text-dark">Show</Dropdown.Item>
-                <Dropdown.Item className="d-flex fw-bold">
-                  5 <span className="icon icon-small ms-auto"><FontAwesomeIcon icon={faCheck} /></span>
-                </Dropdown.Item>
-                <Dropdown.Item className="fw-bold">10</Dropdown.Item>
-                <Dropdown.Item className="fw-bold">20</Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </Col>
-        </Row>
-      </div>
-
-      <LegalFormsTable />
-      {/* <OurServices/> */}
+      <LegalFormsTable forms={forms} handleEditClick={handleEditClick} />
+      {editLegalForm ? <PopUpLegalForm 
+      editLegalForm={editLegalForm}
+      setEditLegalForm={setEditLegalForm} /> : null}
     </>
   );
 };

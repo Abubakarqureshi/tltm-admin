@@ -14,7 +14,7 @@ import { useHistory } from "react-router";
 
 export default () => {
   const dispatch = useDispatch();
-  const history = useHistory()
+  const history = useHistory();
   const [user, setUser] = useState({
     email: "",
     password: ""
@@ -32,7 +32,9 @@ export default () => {
     .then(resp => resp.json())
     .then(data=> {
       if(data.user){
+        console.log(data)
         dispatch(loginUserAction(user))
+      localStorage.setItem('token', data.access_token.plainTextToken)
       history.push('/dashboard/overview')
       
       }else{
