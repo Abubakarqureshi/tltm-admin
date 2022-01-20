@@ -5,7 +5,6 @@ import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown }
 
 import { CompleteOrdersTable, TransactionsTable } from "../components/Tables";
 import SearchItems from "../components/SearchItems";
-import transactions from "../data/transactions";
 
 export default () => {
 
