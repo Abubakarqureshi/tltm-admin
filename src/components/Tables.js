@@ -454,7 +454,7 @@ export const LegalFormsTable = ({forms, handleEditClick}) => {
 
 export const SubscriptionTable = ({handleRemove,handleView,subscription, handleEditFormChange, handleEditFormSubmit, handleEditClick, list}) => {
   // console.log(handleEditClick)
-  const totalSubscription = subscription.length;
+  // const totalSubscription = subscription.length;
   const TableRow = ({listItem}) => {
     const { id, subscriptionType,title,membership_cost, fullName,created_at, Amount} = listItem;
 
@@ -523,7 +523,7 @@ export const SubscriptionTable = ({handleRemove,handleView,subscription, handleE
             </tr>
           </thead>
           <tbody>
-            {subscription.map(listItem => <TableRow key={`transaction-${listItem.invoiceNumber}`}  listItem={listItem} />)}
+            {subscription ? subscription.map(listItem => <TableRow key={`transaction-${listItem.invoiceNumber}`}  listItem={listItem} />): null}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
@@ -543,7 +543,7 @@ export const SubscriptionTable = ({handleRemove,handleView,subscription, handleE
             </Pagination>
           </Nav> */}
           <small className="fw-bold">
-            Showing <b>{totalSubscription}</b> out of <b>{totalSubscription}</b> entries
+            {/* Showing <b>{totalSubscription}</b> out of <b>{totalSubscription}</b> entries */}
           </small>
         </Card.Footer>
       </Card.Body>

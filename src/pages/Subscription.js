@@ -19,35 +19,19 @@ import {
 
 import { SubscriptionTable, TransactionsTable } from "../components/Tables";
 import Modal from "../components/modal/PopUpSubscription";
+import { fetchDbGet } from "../backend/backend";
 
 export default () => {
+  const token = localStorage.getItem('token')
   const [list, setList] = useState([]);
   const [editFormData, setEditFormData] = useState(null);
 
   useEffect(() => {
-    var myHeaders = new Headers();
-    myHeaders.append(
-      "Authorization",
-      "Bearer 636|w6OFiBh6OiC31geQKYAiniYZkcWmdXOZ4JY98HSg"
-    );
 
-    var requestOptions = {
-      method: "GET",
-      headers: myHeaders,
-      redirect: "follow",
-    };
-
-    fetch(
-      "http://tlts-back.maqware.com/api/admin/subscriptions",
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((result) => {
-        if (result.status) {
-          setList(result.subscriptions);
-        }
-      })
-      .catch((error) => console.log("error", error));
+    fetchDbGet('subscriptions', token).then((result) =>{
+      console.log(result)
+      setList(result.subscriptions)
+    } )
   }, []);
 
   console.log(list);

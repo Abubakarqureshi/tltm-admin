@@ -5,12 +5,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCheck, faCog, faHome, faSearch } from '@fortawesome/free-solid-svg-icons';
 import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown, Pagination } from '@themesberg/react-bootstrap';
 
+import { fetchDbGet, fetchDbPost } from "../backend/backend";
 import { TransactionsTable } from "../components/Tables";
 import SearchItems from "../components/SearchItems";
 
 
 export default () => {
 
+  const token = localStorage.getItem('token')
   const [list, setList] = useState([]);
   const [searchValue, setSearchValue] = useState("");
   const [usersPerPage, setUsersPerPage] = useState(10);
@@ -18,21 +20,12 @@ export default () => {
 
 
   useEffect(() => {
-    var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 620|syXhYJKozkyM6gpiHh9QdQfr3NV8ygxnBw0fI1Wn");
 
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-};
-
-fetch("http://tlts-back.maqware.com/api/admin/users", requestOptions)
+    fetchDbGet('users', token).then((result) => {
+      console.log(result) 
+      setList(result.data)
+    })
   
-  .then(response => response.json())
-  .then(result => {console.log(result) 
-    return setList(result.data)})
-  .catch(error => console.log('error', error));
     
   }, [])
 
