@@ -88,7 +88,7 @@ export default () => {
               <Form.Control type="text" placeholder="Search" />
             </InputGroup> */}
           </Col>
-          <Col xs={4} md={2} xl={1} className="ps-md-0 text-end">
+          <Col xs={4} md={4} xl={3} className="ps-md-0 text-end">
             <Dropdown as={ButtonGroup}>
               <Dropdown.Toggle split as={Button} variant="link" className="text-dark m-0 p-0">
                 <span className="icon icon-sm icon-gray">

@@ -5,32 +5,39 @@ import { Col, Row, Form, Button, ButtonGroup, Breadcrumb, InputGroup, Dropdown }
 
 import { RefundsTable, TransactionsTable } from "../components/Tables";
 import PopUpRefunds from '../components/modal/PopUpRefunds';
+import { fetchDbGet } from "../backend/backend";
 
 export default () => {
-
+  const token = localStorage.getItem('token')
   const [refunds, setrefunds] = useState([]);
   const [editstatus, setEditStatus] = useState(null);
   const [status, setStatus] = useState('pending');
 
-  useEffect(() => {
-    var myHeaders = new Headers();
-myHeaders.append("Authorization", "Bearer 689|rficSDORRLo1zVQZbi6BdGsDWt0mhNVDOMUZFO55");
+//   useEffect(() => {
+//     var myHeaders = new Headers();
+// myHeaders.append("Authorization", "Bearer 689|rficSDORRLo1zVQZbi6BdGsDWt0mhNVDOMUZFO55");
 
-var requestOptions = {
-  method: 'GET',
-  headers: myHeaders,
-  redirect: 'follow'
-};
+// var requestOptions = {
+//   method: 'GET',
+//   headers: myHeaders,
+//   redirect: 'follow'
+// };
 
-fetch("http://tlts-back.maqware.com/api/admin/refunds", requestOptions)
-  .then(response => response.json())
-  .then(result => 
-    {console.log(result)
-      if(result.status){
-    return setrefunds(result.refunds)}})
-  .catch(error => console.log('error', error));
+// fetch("http://tlts-back.maqware.com/api/admin/refunds", requestOptions)
+//   .then(response => response.json())
+//   .then(result => 
+//     {console.log(result)
+//       if(result.status){
+//     return setrefunds(result.refunds)}})
+//   .catch(error => console.log('error', error));
+//   }, [])
+  
+  useEffect(() =>{
+    fetchDbGet('refunds', token).then((response) => {
+      console.log(response)
+      setrefunds(response.refunds)
+    } )
   }, [])
-
 
   const handleDeclineClick = (refundItem) => {
     setEditStatus(refundItem);

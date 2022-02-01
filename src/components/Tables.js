@@ -453,18 +453,11 @@ export const LegalFormsTable = ({forms, handleEditClick}) => {
 };
 
 export const SubscriptionTable = ({handleRemove,handleView,subscription, handleEditFormChange, handleEditFormSubmit, handleEditClick, list}) => {
-  // console.log(handleEditClick)
-  // const totalSubscription = subscription.length;
   const TableRow = ({listItem}) => {
     const { id, subscriptionType,title,membership_cost, fullName,created_at, Amount} = listItem;
 
     return (
       <tr>
-        {/* <td>
-          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
-            {id}
-          </Card.Link>
-        </td> */}
         <td>
           <span className="fw-normal">
             {id}
@@ -481,30 +474,10 @@ export const SubscriptionTable = ({handleRemove,handleView,subscription, handleE
           </span>
         </td>
         <td>
-          <span className="fw-normal" onClick={()=>handleEditClick(listItem)} style={{cursor: 'pointer'}}>
+          <span className="fw-normal editSubscription" onClick={()=>handleEditClick(listItem)} style={{cursor: 'pointer'}}>
           <FontAwesomeIcon icon={faEdit} className="me-2" /> Update Subscription 
           </span>
         </td>
-        {/* <td>
-          <Dropdown as={ButtonGroup}>
-            <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
-              <span className="icon icon-sm">
-                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
-              </span>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item onClick={() => handleView()} > 
-                <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
-              </Dropdown.Item>
-              <Dropdown.Item onClick={()=>handleEditClick(listItem)} >
-                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
-              </Dropdown.Item>
-              <Dropdown.Item className="text-danger" onClick={()=>handleRemove(listItem)}>
-                <FontAwesomeIcon icon={faTrashAlt} className="me-2"  /> Remove
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </td> */}
       </tr>
     );
   };
@@ -527,23 +500,7 @@ export const SubscriptionTable = ({handleRemove,handleView,subscription, handleE
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
-          {/* <Nav>
-            <Pagination className="mb-2 mb-lg-0">
-              <Pagination.Prev>
-                Previous
-              </Pagination.Prev>
-              <Pagination.Item active>1</Pagination.Item>
-              <Pagination.Item>2</Pagination.Item>
-              <Pagination.Item>3</Pagination.Item>
-              <Pagination.Item>4</Pagination.Item>
-              <Pagination.Item>5</Pagination.Item>
-              <Pagination.Next>
-                Next
-              </Pagination.Next>
-            </Pagination>
-          </Nav> */}
           <small className="fw-bold">
-            {/* Showing <b>{totalSubscription}</b> out of <b>{totalSubscription}</b> entries */}
           </small>
         </Card.Footer>
       </Card.Body>

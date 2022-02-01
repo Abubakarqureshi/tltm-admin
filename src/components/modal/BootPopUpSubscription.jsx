@@ -1,9 +1,8 @@
 import { Form } from "@themesberg/react-bootstrap";
 import React, { useState } from "react";
-import "./Modal.scss";
 
 
-const Modal = ({ editFormData, setEditFormData, getSubscriptions }) => {
+const Modal = ({ editFormData, setEditFormData }) => {
 const [plan , setplan]=useState(editFormData);
 
 console.log(plan)
@@ -32,16 +31,14 @@ const handleSubmit = () => {
   
   fetch(`http://tlts-back.maqware.com/api/admin/update_subscription/${plan.id}`, requestOptions)
     .then(response => response.json())
-    .then(result => 
-      getSubscriptions()
-    )
+    .then(result => console.log(result))
     .catch(error => console.log('error', error));
 }
 
 
   return (
     <Form>
-    <div className="modalBackground">
+    {/* <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
           <button
@@ -79,7 +76,6 @@ const handleSubmit = () => {
           >
             Cancel
           </button>
-          {/* // call update subscription api here on onSubmit function */}
           <button
           onClick={() => {
             handleSubmit();
@@ -88,7 +84,45 @@ const handleSubmit = () => {
           >Update</button>
         </div>
       </div>
+    </div> */}
+
+    <div className="modal fade" id="updateSubscriptionModal">
+        <div className="modal-dialog modal-dialog-centered">
+            <div className="modal-content">
+                <div className="modal-header">
+                    <h5 className="modal-title">Update Subscription</h5>
+
+                    <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div className="modal-body">
+					<div className="form-group">
+						<label> Subscription: </label>
+						<input type="text" className="form-control" name={'title'} onChange={handleChange} value={plan.title} />
+					</div>
+
+					<div className="form-group">
+						<label> Amount: </label>
+						<input type="text" className="form-control" name={'membership_cost'} onChange={handleChange} value={plan.membership_cost} />
+					</div>
+
+					<div className="form-group">
+						<label>  Membership Description: </label>
+						<input type="text" className="form-control" name={'membership_description'} onChange={handleChange} value={plan.membership_description}/>
+					</div>
+				</div>
+
+                <div className="modal-footer">
+                    <button type="button" className="btn btn-primary" onClick={() => {handleSubmit();}}>Save changes</button>
+
+                    <button type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
     </div>
+
     </Form>
   );
 }

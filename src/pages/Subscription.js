@@ -20,31 +20,30 @@ import {
 import { SubscriptionTable, TransactionsTable } from "../components/Tables";
 import Modal from "../components/modal/PopUpSubscription";
 import { fetchDbGet } from "../backend/backend";
+// import $ from 'jquery';
 
 export default () => {
+
   const token = localStorage.getItem('token')
   const [list, setList] = useState([]);
   const [editFormData, setEditFormData] = useState(null);
 
-  useEffect(() => {
-
+  const getSubscriptions = () => {
     fetchDbGet('subscriptions', token).then((result) =>{
       console.log(result)
       setList(result.subscriptions)
-    } )
+    })
+  }
+  useEffect(() => {
+    getSubscriptions()
   }, []);
 
   console.log(list);
 
   const handleEditClick = (listItem) => {
     setEditFormData(listItem);
+    // $('#updateSubscriptionModal').modal('show');
   };
-
-  // const handleRemove = (listItem) => {
-  //   const newList = list.filter((ls) => ls.invoiceNumber !== listItem.invoiceNumber);
-  //   console.log(newList)
-  //   setList(newList);
-  // }
 
   return (
     <>
@@ -56,12 +55,11 @@ export default () => {
       </div>
 
       <SubscriptionTable
-        // handleRemove={handleRemove}
         subscription={list}
         handleEditClick={handleEditClick}
       />
       {editFormData ? (
-        <Modal editFormData={editFormData} setEditFormData={setEditFormData} />
+        <Modal editFormData={editFormData} setEditFormData={setEditFormData} getSubscriptions={getSubscriptions}/>
       ) : null}
     </>
   );
