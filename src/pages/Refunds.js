@@ -57,7 +57,6 @@ export default () => {
       .then(response => response.json())
       .then(result => 
          console.log(result),
-        //  setStatus('approved')
       ) 
       .catch(error => console.log('error', error));
   }
