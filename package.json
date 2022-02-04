@@ -64,7 +64,8 @@
     "react-transition-group": "^4.4.1",
     "react-utils": "^1.0.0",
     "redux": "^4.1.2",
-    "simplebar-react": "^2.3.0"
+    "simplebar-react": "^2.3.0",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
