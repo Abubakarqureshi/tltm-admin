@@ -3,10 +3,10 @@ import React, { useState } from "react";
 import "./Modal.scss";
 
 
-const Modal = ({ editFormData, setEditFormData, getSubscriptions }) => {
+const Modal = ({ editFormData, setEditFormData, getSubscriptions}) => {
 const [plan , setplan]=useState(editFormData);
 
-console.log(plan)
+// console.log(plan)
 
 const handleChange =(e) => {
   setplan({...plan, [e.target.name]: e.target.value})
@@ -33,7 +33,11 @@ const handleSubmit = () => {
   fetch(`http://tlts-back.maqware.com/api/admin/update_subscription/${plan.id}`, requestOptions)
     .then(response => response.json())
     .then(result => 
+      console.log(result),
+      setTimeout(() => {
       getSubscriptions()
+      }, 500),
+      setEditFormData(null)
     )
     .catch(error => console.log('error', error));
 }

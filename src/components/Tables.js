@@ -258,7 +258,7 @@ export const TransactionsTable = ({searchedTransaction,setCurrentPage,currentPag
             </tr>
           </thead>
           <tbody>
-            {currentPageUsers.map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
+            {currentPageUsers.map(t => <TableRow key={`transaction-${t.id}`} {...t} />)}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
@@ -353,11 +353,6 @@ export const LegalFormsTable = ({forms, handleEditClick}) => {
 
     return (
       <tr>
-        {/* <td>
-          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
-            {id}
-          </Card.Link>
-        </td> */}
         <td>
           <span className="fw-normal">
             {id}
@@ -378,31 +373,6 @@ export const LegalFormsTable = ({forms, handleEditClick}) => {
           <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit 
           </span>
         </td>
-        {/* <td>
-          <span className="fw-normal">
-            {<FontAwesomeIcon icon={faDownload} />}
-          </span>
-        </td> */}
-        {/* <td>
-          <Dropdown as={ButtonGroup}>
-            <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
-              <span className="icon icon-sm">
-                <FontAwesomeIcon icon={faEllipsisH} className="icon-dark" />
-              </span>
-            </Dropdown.Toggle>
-            <Dropdown.Menu>
-              <Dropdown.Item>
-                <FontAwesomeIcon icon={faEye} className="me-2" /> View Details
-              </Dropdown.Item>
-              <Dropdown.Item>
-                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
-              </Dropdown.Item>
-              <Dropdown.Item className="text-danger">
-                <FontAwesomeIcon icon={faTrashAlt} className="me-2" /> Remove
-              </Dropdown.Item>
-            </Dropdown.Menu>
-          </Dropdown>
-        </td> */}
       </tr>
     );
   };
@@ -416,7 +386,6 @@ export const LegalFormsTable = ({forms, handleEditClick}) => {
               <th className="border-bottom">id</th>
               <th className="border-bottom">Price</th>
               <th className="border-bottom">Document Title</th>
-              {/* <th className="border-bottom">Download</th> */}
               <th className="border-bottom">Actions</th>
 
 
@@ -424,25 +393,10 @@ export const LegalFormsTable = ({forms, handleEditClick}) => {
             </tr>
           </thead>
           <tbody>
-            {forms.map(lf => <TableRow key={`legalFormsList-${lf.invoiceNumber}`} {...lf} />)}
+            {forms.map(lf => <TableRow key={`legalFormsList-${lf.id}`} {...lf} />)}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
-          {/* <Nav>
-            <Pagination className="mb-2 mb-lg-0">
-              <Pagination.Prev>
-                Previous
-              </Pagination.Prev>
-              <Pagination.Item active>1</Pagination.Item>
-              <Pagination.Item>2</Pagination.Item>
-              <Pagination.Item>3</Pagination.Item>
-              <Pagination.Item>4</Pagination.Item>
-              <Pagination.Item>5</Pagination.Item>
-              <Pagination.Next>
-                Next
-              </Pagination.Next>
-            </Pagination>
-          </Nav> */}
           <small className="fw-bold">
             Showing <b>{totalLegalForms}</b> out of <b>{totalLegalForms}</b> entries
           </small>
@@ -496,7 +450,7 @@ export const SubscriptionTable = ({handleRemove,handleView,subscription, handleE
             </tr>
           </thead>
           <tbody>
-            {subscription ? subscription.map(listItem => <TableRow key={`transaction-${listItem.invoiceNumber}`}  listItem={listItem} />): null}
+            {subscription ? subscription.map(listItem => <TableRow key={`transaction-${listItem.id}`}  listItem={listItem} />): null}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
@@ -513,21 +467,23 @@ export const RefundsTable = ({refunds, handleDeclineClick, handleAccept, setStat
   const totalRefunds = refunds.length;
 
   const TableRow = (refundItem) => {
-    const { id, user_id, status, reason} = refundItem;
-    // const statusVariant = status === "Paid" ? "success"
-    //   : status === "Due" ? "warning"
-    //     : status === "Canceled" ? "danger" : "primary";
-
+    const { id, user_id, user, status, reason, amount} = refundItem;
+    // console.log(user)
     return (
       <tr>
         <td>
-          <Card.Link as={Link} to={Routes.Invoice.path} className="fw-normal">
+          <span className="fw-normal">
             {id}
-          </Card.Link>
+          </span>
         </td>
         <td>
           <span className="fw-normal">
-            {user_id}
+            {user.name + " " + user.last_name}
+          </span>
+        </td>
+        <td>
+          <span className="fw-normal">
+            ${amount}
           </span>
         </td>
         <td>
@@ -535,11 +491,13 @@ export const RefundsTable = ({refunds, handleDeclineClick, handleAccept, setStat
             {status}
           </span>
         </td>
+        {status == 'pending' ? 
+        null :
         <td>
-          <span className="fw-normal">
-            {reason}
-          </span>
-        </td>
+        <span className="fw-normal">
+          {reason}
+        </span>
+      </td>}
         <td>
           <Dropdown as={ButtonGroup}>
             <Dropdown.Toggle as={Button} split variant="link" className="text-dark m-0 p-0">
@@ -551,9 +509,6 @@ export const RefundsTable = ({refunds, handleDeclineClick, handleAccept, setStat
               <Dropdown.Item onClick={() => handleAccept()}>
                 <FontAwesomeIcon icon={faCheck}  className="me-2" /> Accept
               </Dropdown.Item>
-              {/* <Dropdown.Item>
-                <FontAwesomeIcon icon={faEdit} className="me-2" /> Edit
-              </Dropdown.Item> */}
               <Dropdown.Item className="text-danger" onClick={() => handleDeclineClick(refundItem)} >
                 <FontAwesomeIcon icon={faTimes} className="me-2" /> Decline
               </Dropdown.Item>
@@ -568,19 +523,28 @@ export const RefundsTable = ({refunds, handleDeclineClick, handleAccept, setStat
     <Card border="light" className="table-wrapper table-responsive shadow-sm">
       <Card.Body className="pt-0">
         <Table hover className="user-table align-items-center">
+          {status == 'pending' ?
           <thead>
-            <tr>
-              <th className="border-bottom">Id</th>
-              <th className="border-bottom">User Id</th>
-              <th className="border-bottom">Status</th>
-              <th className="border-bottom">Remarks</th>
-              <th className="border-bottom">Action</th>
-
-            </tr>
-          </thead>
-          {console.log(refunds)}
+          <tr>
+            <th className="border-bottom">Id</th>
+            <th className="border-bottom">UserName</th>
+            <th className="border-bottom">Amount</th>
+            <th className="border-bottom">Status</th>
+            <th className="border-bottom">Action</th>
+          </tr>
+        </thead> : 
+          <thead>
+          <tr>
+            <th className="border-bottom">Id</th>
+            <th className="border-bottom">User Id</th>
+            <th className="border-bottom">Amount</th>
+            <th className="border-bottom">Status</th>
+            <th className="border-bottom">Remarks</th>
+            <th className="border-bottom">Action</th>
+          </tr>
+        </thead> }
           <tbody>
-            {refunds.filter(el => (el.status == status)).map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
+            {refunds.filter(el => (el.status == status)).map(t => <TableRow key={`transaction-${t.id}`} {...t}/>)}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">
@@ -661,7 +625,7 @@ export const CompleteOrdersTable = ({indexedList}) => {
             </tr>
           </thead>
           <tbody>
-            {indexedList.map((t,idx) => <TableRow key={`transaction-${t.invoiceNumber}`}  {...t} />)}
+            {indexedList.map(t => <TableRow key={`transaction-${t.idx}`}  {...t} />)}
           </tbody>
 
         </Table>
@@ -755,7 +719,7 @@ export const ReceivedPaymentTable = ({searchedPayments, indexedList}) => {
             </tr>
           </thead>
           <tbody>
-            {indexedList.map(t => <TableRow key={`transaction-${t.invoiceNumber}`} {...t} />)}
+            {indexedList.map(t => <TableRow key={`transaction-${t.idx}`} {...t} />)}
           </tbody>
         </Table>
         <Card.Footer className="px-3 border-0 d-lg-flex align-items-center justify-content-between">

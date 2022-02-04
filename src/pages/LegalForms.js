@@ -1,21 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCheck,
-  faCog,
-  faHome,
-  faSearch,
-} from "@fortawesome/free-solid-svg-icons";
-import {
-  Col,
-  Row,
-  Form,
-  Button,
-  ButtonGroup,
-  Breadcrumb,
-  InputGroup,
-  Dropdown,
-} from "@themesberg/react-bootstrap";
 
 import { fetchDbGet } from "../backend/backend";
 import { LegalFormsTable, TransactionsTable } from "../components/Tables";
@@ -28,35 +11,15 @@ export default () => {
   const [forms, setForms] = useState([]);
   const [editLegalForm, setEditLegalForm] = useState(null);
 
-  // useEffect(() => {
-  //   var myHeaders = new Headers();
-  //   myHeaders.append(
-  //     "Authorization",
-  //     "Bearer 636|w6OFiBh6OiC31geQKYAiniYZkcWmdXOZ4JY98HSg"
-  //   );
-
-  //   var requestOptions = {
-  //     method: "GET",
-  //     headers: myHeaders,
-  //     redirect: "follow",
-  //   };
-
-  //   fetch("http://tlts-back.maqware.com/api/admin/legal_forms", requestOptions)
-  //     .then((response) => response.json())
-  //     .then((result) => {
-  //       console.log(result);
-  //       if (result.status) {
-  //         return setForms(result.legal_forms);
-  //       }
-  //     })
-  //     .catch((error) => console.log("error", error));
-  // }, []);
-
-  useEffect (() =>{
+  const getLegalForms = () => {
     fetchDbGet('legal_forms', token).then((result) => {
       console.log(result);
       setForms(result.legal_forms)
-    } )
+    })
+  }
+
+  useEffect (() =>{
+  getLegalForms()
   }, [])
 
 
@@ -76,6 +39,7 @@ export default () => {
       <LegalFormsTable forms={forms} handleEditClick={handleEditClick} />
       {editLegalForm ? <PopUpLegalForm 
       editLegalForm={editLegalForm}
+      getLegalForms = {getLegalForms}
       setEditLegalForm={setEditLegalForm} /> : null}
     </>
   );

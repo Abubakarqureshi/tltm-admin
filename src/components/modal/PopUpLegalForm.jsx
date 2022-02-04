@@ -2,7 +2,7 @@ import { Form } from "@themesberg/react-bootstrap";
 import React, { useEffect, useState } from "react";
 import "./Modal.scss";
 
-const Modal = ({ editLegalForm, setEditLegalForm }) => {
+const Modal = ({ editLegalForm, setEditLegalForm, getLegalForms }) => {
   const [legalForm, setlegalForm] = useState(editLegalForm);
 
   console.log(legalForm);
@@ -37,7 +37,13 @@ const Modal = ({ editLegalForm, setEditLegalForm }) => {
       requestOptions
     )
       .then((response) => response.json())
-      .then((result) => console.log(result))
+      .then((result) => 
+      console.log(result),
+      setTimeout(() => {
+        getLegalForms()
+      }, 500),
+      setEditLegalForm(false)
+    )
       .catch((error) => console.log("error", error));
   };
   
@@ -66,7 +72,7 @@ const Modal = ({ editLegalForm, setEditLegalForm }) => {
                   type="text"
                   name={"title"}
                   onChange={handleChange}
-                  value={legalForm.title}
+                  value={legalForm?legalForm.title: null}
                   disabled
                 />
               </label>
@@ -78,7 +84,7 @@ const Modal = ({ editLegalForm, setEditLegalForm }) => {
                   type="text"
                   name={"price"}
                   onChange={handleChange}
-                  value={legalForm.price}
+                  value={legalForm?legalForm.price : 0}
                 />$
               </label>
               <br />

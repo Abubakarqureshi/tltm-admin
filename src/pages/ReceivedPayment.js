@@ -51,8 +51,8 @@ export default () => {
     
   }, [])
 
-  const searchedList = list ? list.filter(el=>el.transaction_id.toLowerCase().includes(searchValue.toLowerCase())) : []
-  const indexedList = searchedList.map((el, idx) => ({...el, idx : idx+1}) )
+  const searchedList = list ? list.filter(el=>el.detail.first_name.toLowerCase().includes(searchValue.toLowerCase()) || el.detail.last_name.toLowerCase().includes(searchValue.toLowerCase())) : []
+  const indexedList = searchedList.map((el, idx) => ({...el, idx : idx+1}))
 
   const paginate = (array, page_size, page_number) => {
     return array.slice((page_number - 1) * page_size, page_number * page_size)
