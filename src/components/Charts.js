@@ -8,8 +8,8 @@ import chartist from "chartist";
 
 export const SalesValueChart = () => {
   const data = {
-    labels: ['Jan','Feb','Mar','Apr','May','Jun','July','August','September','October','November','December'],
-    series: [[1, 2, 4, 1, 12, 1, 3, 4, 7, 5 , 11, 2]]
+    labels: ['Jan','Feb','Mar','Apr','May','Jun','July','August','September','October'],
+    series: [[1, 2, 4, 1, 12, 1, 3, 4, 7, 5 ]]
   };
 
   const options = {
