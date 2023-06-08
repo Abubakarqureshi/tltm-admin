@@ -22,6 +22,7 @@ export const SalesValueChart = () => {
     },
     axisY: {
       // On the y-axis start means left and end means right
+      // On the y-axis start means left and end means right
       showGrid: false,
       showLabel: true,
       labelInterpolationFnc: value => `$${value / 0.25}k`
