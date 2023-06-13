@@ -31,7 +31,7 @@ const PaginationUser = ({ usersPerPage, totalTransactions, setCurrentPage,curren
           
           <ul className='pagination'>
           <Pagination.Prev onClick={() => currentPage>1 ? setCurrentPage(currentPage-1) : currentPage }>
-                Prev 1
+                Prev
               </Pagination.Prev>
             {pageNumbers.map(number => (
               <li key={number} className='page-item'>
@@ -41,7 +41,7 @@ const PaginationUser = ({ usersPerPage, totalTransactions, setCurrentPage,curren
               </li>
             ))}
             <Pagination.Next onClick={() => currentPage < pageNumbers.length ? setCurrentPage(currentPage+1) : currentPage}>
-                Next 1
+                Next
               </Pagination.Next>
           </ul>
         </nav>
