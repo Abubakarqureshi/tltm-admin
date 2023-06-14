@@ -86,7 +86,7 @@ export const GeneralInfoForm = () => {
             </Col>
             <Col sm={3} className="mb-3">
               <Form.Group id="addressNumber">
-                <Form.Label>Number</Form.Label>
+                <Form.Label>Numbers</Form.Label>
                 <Form.Control required type="number" placeholder="No." />
               </Form.Group>
             </Col>
